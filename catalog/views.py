@@ -6,8 +6,8 @@ from .models import Product, Category
 
 def home(request):
     context = {
-        'object_list': Category.objects.all(),
-        'title': 'Категории товаров'
+        'object_list': Product.objects.all(),
+        'title': 'Товары нашего магазина'
     }
     return render(request, 'catalog/home.html', context)
 
@@ -21,7 +21,7 @@ def show_product(request, pk):
     product_description = product.description
     context = {
         'object_list': Product.objects.filter(id=pk),
-        'title': f'Товары категории {product.name}',
+        'title': 'Информация о товаре',
         'description': product_description
     }
     return render(request, 'catalog/product.html', context)
