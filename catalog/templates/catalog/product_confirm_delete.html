@@ -1,0 +1,31 @@
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p> Хотите удалить товар "{{ object.name }}"?</p>
+                        <style>
+                            .btn-danger {
+                              background-color: red;
+                              color: white;
+                              width: 100px;
+                            }
+
+                            .btn-warning {
+                              background-color: green;
+                              color: white;
+                              width: 100px;
+                            }
+                        </style>
+                        <button type="submit" class="btn btn-danger">Подтвердить</button>
+                        <a href="{% url 'catalog:list' %}" class="btn btn-warning">Отмена</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

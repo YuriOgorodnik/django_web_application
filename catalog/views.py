@@ -1,17 +1,9 @@
-from gettext import Catalog
-
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Product, Category
-
-
-# def home(request):
-#     context = {
-#         'object_list': Product.objects.all(),
-#         'title': 'Товары нашего магазина'
-#     }
-#     return render(request, 'catalog/product_list.html', context)
+from .forms import ProductForm, VersionForm
+from .models import Product, Category, Version
 
 
 class ProductListView(ListView):
@@ -41,3 +33,26 @@ class ProductDetailView(DetailView):
         context_data['object_list'] = Product.objects.filter(id=self.kwargs.get('pk'))
         context_data['description'] = product.description
         return context_data
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:list')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:list')
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:list')
+
+
+class VersionCreateView(CreateView):
+    model = Version
+    form_class = VersionForm
+    success_url = reverse_lazy('catalog:list')
