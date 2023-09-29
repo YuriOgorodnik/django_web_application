@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.auth import get_user_model
 from django.db import models
 
 
@@ -16,6 +17,9 @@ class Category(models.Model):
         verbose_name_plural = 'категории'
 
 
+User = get_user_model()
+
+
 class Product(models.Model):
     name = models.CharField(max_length=250, verbose_name='наименование')
     description = models.TextField(verbose_name='описание')
@@ -24,6 +28,7 @@ class Product(models.Model):
     price = models.DecimalField(verbose_name='цена', max_digits=12, decimal_places=2, default=0)
     created_at = models.DateTimeField(verbose_name='дата создания', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='дата последнего изменения', auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
 
     def __str__(self):
         return f'{self.name}'
