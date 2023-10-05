@@ -1,0 +1,28 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-group">
+            {% for object in object_list %}
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <p class="card-text">
+                        {{ object.name|title }}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    {{ object.description }}
+                </div>
+                <div class="mb-4 box-shadow "><br>
+                    <div class="btn-group">
+                        <a href="{% url 'catalog:product_view' object.pk %}" type="button"
+                           class="btn btn-sm btn-outline-primary">К товарам</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

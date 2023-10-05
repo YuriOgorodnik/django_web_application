@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from .forms import ProductForm, VersionForm
 from .models import Product, Category, Version
+from .services import get_categories_cache
 
 
 class ProductListView(ListView):
@@ -60,3 +61,13 @@ class VersionCreateView(CreateView):
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('catalog:list')
+
+
+class CategoryListView(ListView):
+    model = Category
+    extra_context = {
+        'title': 'Категории товаров нашего магазина'
+    }
+
+    def get_queryset(self):
+        return get_categories_cache()
